@@ -399,7 +399,7 @@ function layout(face) {
   const noseY = eyeY + lower * Math.min(0.62, Math.max(0.38, noseT));
   const mouthT = 1 / 3 + (face.mouthPos - 50) / 280;
   const mouthY = noseY + (chinY - noseY) * Math.min(0.55, Math.max(0.18, mouthT));
-  const rawMouthW = unit * lerp(1.15, 1.7, face.mouthWidth / 100);
+  const rawMouthW = unit * lerp(0.35, 0.7, face.mouthWidth / 100);
   const halfAt = (y) => {
     if (y <= rightA.y) {
       const dy = y - cy;
@@ -412,8 +412,8 @@ function layout(face) {
     const t = (y - cornerY) / Math.max(1, chinY - cornerY);
     return lerp(halfJaw, halfChin, Math.min(1, t));
   };
-  const mouthW = Math.min(rawMouthW, Math.max(eyeW * 0.7, halfAt(mouthY) * 0.82));
-  const noseW = eyeW * lerp(0.48, 0.85, face.noseWidth / 100);
+  const mouthW = Math.min(rawMouthW, halfAt(mouthY) * 0.42);
+  const noseW = unit * lerp(0.18, 0.38, face.noseWidth / 100);
   const smile = (face.smile - 50) / 50;
   const browY = eyeY - eyeH * 0.55 - lerp(eyeH * 0.15, eyeH * 0.55, face.browHeight / 100);
 
@@ -640,37 +640,42 @@ function drawFace(container, face, opts) {
 
   for (const side of [-1, 1]) {
     const ex = geo.cx + side * geo.eyeDx;
-    drawBrow(svg, face, geo, ex, side);
-    drawEye(svg, defs, {
-      ex,
-      ey: geo.eyeY,
-      side,
-      w: geo.eyeW,
-      h: geo.eyeH,
-      tilt: geo.tiltPx,
-      iris: face.iris,
-      uid: opts.uid,
-      lashes: !opts.compact,
-    });
+    svg.append(
+      svgEl("circle", {
+        cx: ex,
+        cy: geo.eyeY,
+        r: Math.min(geo.eyeW, geo.eyeH) * 0.42,
+        fill: "none",
+        stroke: "#2a221c",
+        "stroke-width": 2,
+      })
+    );
   }
 
-  const bridge = Math.max(12, (geo.noseY - geo.eyeY) * 0.42);
-  const nose = svgEl("path", {
-    d: `M ${fmt(geo.cx)} ${fmt(geo.noseY - bridge)}
-        L ${fmt(geo.cx)} ${fmt(geo.noseY - geo.noseW * 0.1)}
-        M ${fmt(geo.cx - geo.noseW)} ${fmt(geo.noseY)}
-        Q ${fmt(geo.cx)} ${fmt(geo.noseY + geo.noseW * 0.55)}, ${fmt(geo.cx + geo.noseW)} ${fmt(geo.noseY)}`,
-    fill: "none",
-    stroke: "#2a221c",
-    "stroke-width": 1.8,
-    "stroke-linecap": "round",
-  });
-  svg.append(nose);
-
   svg.append(
-    svgEl("path", {
-      d: `M ${fmt(geo.cx - geo.mouthW)} ${fmt(geo.mouthY)} Q ${fmt(geo.cx)} ${fmt(geo.mouthY + geo.smile * 10)}, ${fmt(geo.cx + geo.mouthW)} ${fmt(geo.mouthY)}`,
-      fill: "none",
+    svgEl("line", {
+      x1: geo.cx,
+      y1: geo.noseY - Math.max(8, (geo.noseY - geo.eyeY) * 0.28),
+      x2: geo.cx,
+      y2: geo.noseY,
+      stroke: "#2a221c",
+      "stroke-width": 1.6,
+      "stroke-linecap": "round",
+    }),
+    svgEl("line", {
+      x1: geo.cx - geo.noseW,
+      y1: geo.noseY,
+      x2: geo.cx + geo.noseW,
+      y2: geo.noseY,
+      stroke: "#2a221c",
+      "stroke-width": 1.8,
+      "stroke-linecap": "round",
+    }),
+    svgEl("line", {
+      x1: geo.cx - geo.mouthW,
+      y1: geo.mouthY,
+      x2: geo.cx + geo.mouthW,
+      y2: geo.mouthY,
       stroke: "#2a221c",
       "stroke-width": 1.8,
       "stroke-linecap": "round",
@@ -1016,8 +1021,8 @@ function renderChrome() {
 
   const hint = document.getElementById("hint");
   hint.textContent = state.guides
-    ? "눈선, 턱끝, 턱 모서리의 점을 끌어 바꿀 수 있습니다. 초록 원은 어떤 얼굴에서든 같습니다."
-    : "가이드를 켜면 원, 눈선, 턱선을 같이 보며 조절할 수 있습니다.";
+    ? "눈은 동그라미, 코와 입은 짧은 선입니다. 슬라이더 동그라미를 두 번 누르면 그 값만 처음 값으로 돌아갑니다."
+    : "가이드를 켜면 원, 눈선, 코, 입, 턱선을 같이 볼 수 있습니다.";
 
   const diff = document.getElementById("diff");
   diff.replaceChildren();
@@ -1275,6 +1280,16 @@ function clientToSvg(svg, clientX, clientY) {
 }
 
 function bind() {
+  document.getElementById("sliders").addEventListener("dblclick", (event) => {
+    const input = event.target.closest("[data-key]");
+    if (!input) return;
+    const key = input.dataset.key;
+    const base = state.base?.face;
+    if (!base || base[key] == null) return;
+    state.current[key] = base[key];
+    render();
+  });
+
   document.getElementById("sliders").addEventListener("input", (event) => {
     const key = event.target.dataset.key;
     if (!key) return;
