@@ -303,6 +303,27 @@ main {
   text-underline-offset: 3px;
 }
 
+.sex-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.sex-row button {
+  flex: 1;
+  border: 1px solid var(--line);
+  background: transparent;
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-weight: 600;
+}
+
+.sex-row button[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #f6f1e7;
+}
+
 .preset-row { margin-bottom: 14px; }
 
 .preset-row button {

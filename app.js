@@ -2,14 +2,14 @@
 // 슬라이더 숫자는 모두 0~100이고, 화면 좌표는 BOX를 기준으로 계산합니다.
 
 const BOX = { cx: 200, cy: 156, R: 104 };
-const VIEW = "16 4 368 430";
+const VIEW = "-36 0 430 470";
 const MODEL = {
   eyeT0: 0.34,
   eyeT1: 0.66,
   jawDrop0: 0.18,
   jawDrop1: 1.05,
 };
-const STORE_KEY = "face-ratio-studio-v6";
+const STORE_KEY = "face-ratio-studio-v7";
 
 const SLIDER_KEYS = [
   "jawLength",
@@ -71,99 +71,153 @@ const GROUPS = [
 
 const PRESETS = [
   {
-    id: "child",
+    id: "f-child",
+    sex: "f",
     name: "유아",
     iris: "#8a5a32",
     values: {
-      jawLength: 40,
-      jawWidth: 32,
-      jawCorner: 42,
-      chinWidth: 34,
-      cheekSoft: 78,
-      eyeLevel: 58,
-      eyeSize: 68,
-      eyeGap: 52,
+      jawLength: 34,
+      jawWidth: 36,
+      jawCorner: 40,
+      chinWidth: 32,
+      cheekSoft: 84,
+      eyeLevel: 60,
+      eyeSize: 64,
+      eyeGap: 50,
       eyeTilt: 54,
-      eyeOpen: 76,
-      browHeight: 46,
-      browTilt: 52,
+      eyeOpen: 78,
+      browHeight: 48,
+      browTilt: 54,
       noseLength: 50,
       noseWidth: 40,
-      mouthWidth: 52,
+      mouthWidth: 50,
       mouthPos: 50,
       smile: 58,
     },
   },
   {
-    id: "teen",
+    id: "f-teen",
+    sex: "f",
     name: "청소년",
-    iris: "#3c6e9a",
+    iris: "#6b4f8a",
     values: {
-      jawLength: 58,
-      jawWidth: 42,
-      jawCorner: 48,
-      chinWidth: 30,
-      cheekSoft: 55,
-      eyeLevel: 46,
-      eyeSize: 58,
-      eyeGap: 58,
+      jawLength: 52,
+      jawWidth: 40,
+      jawCorner: 46,
+      chinWidth: 26,
+      cheekSoft: 64,
+      eyeLevel: 50,
+      eyeSize: 56,
+      eyeGap: 50,
       eyeTilt: 56,
-      eyeOpen: 64,
-      browHeight: 50,
-      browTilt: 54,
+      eyeOpen: 68,
+      browHeight: 52,
+      browTilt: 56,
       noseLength: 50,
       noseWidth: 44,
       mouthWidth: 48,
+      mouthPos: 50,
+      smile: 52,
+    },
+  },
+  {
+    id: "f-adult",
+    sex: "f",
+    name: "성인",
+    iris: "#5c4030",
+    values: {
+      jawLength: 64,
+      jawWidth: 44,
+      jawCorner: 52,
+      chinWidth: 28,
+      cheekSoft: 48,
+      eyeLevel: 44,
+      eyeSize: 50,
+      eyeGap: 50,
+      eyeTilt: 52,
+      eyeOpen: 58,
+      browHeight: 44,
+      browTilt: 50,
+      noseLength: 50,
+      noseWidth: 46,
+      mouthWidth: 46,
+      mouthPos: 50,
+      smile: 48,
+    },
+  },
+  {
+    id: "m-child",
+    sex: "m",
+    name: "유아",
+    iris: "#6a4a32",
+    values: {
+      jawLength: 40,
+      jawWidth: 48,
+      jawCorner: 50,
+      chinWidth: 40,
+      cheekSoft: 70,
+      eyeLevel: 54,
+      eyeSize: 54,
+      eyeGap: 52,
+      eyeTilt: 50,
+      eyeOpen: 66,
+      browHeight: 40,
+      browTilt: 48,
+      noseLength: 50,
+      noseWidth: 46,
+      mouthWidth: 50,
       mouthPos: 50,
       smile: 50,
     },
   },
   {
-    id: "adult",
-    name: "성인",
-    iris: "#5c4030",
+    id: "m-teen",
+    sex: "m",
+    name: "청소년",
+    iris: "#4a6280",
     values: {
-      jawLength: 78,
-      jawWidth: 54,
-      jawCorner: 66,
-      chinWidth: 42,
-      cheekSoft: 32,
-      eyeLevel: 36,
-      eyeSize: 48,
-      eyeGap: 60,
+      jawLength: 66,
+      jawWidth: 58,
+      jawCorner: 64,
+      chinWidth: 46,
+      cheekSoft: 34,
+      eyeLevel: 42,
+      eyeSize: 46,
+      eyeGap: 54,
       eyeTilt: 48,
-      eyeOpen: 48,
-      browHeight: 42,
-      browTilt: 44,
+      eyeOpen: 50,
+      browHeight: 34,
+      browTilt: 42,
       noseLength: 50,
-      noseWidth: 48,
-      mouthWidth: 46,
+      noseWidth: 50,
+      mouthWidth: 48,
       mouthPos: 50,
       smile: 46,
     },
   },
   {
-    id: "chibi",
-    name: "치비",
-    iris: "#7b52c8",
+    id: "m-adult",
+    sex: "m",
+    name: "성인",
+    iris: "#3d342c",
     values: {
-      jawLength: 28,
-      jawWidth: 26,
-      jawCorner: 36,
-      chinWidth: 38,
-      cheekSoft: 88,
-      eyeLevel: 66,
-      eyeSize: 78,
-      eyeGap: 46,
-      eyeTilt: 56,
-      eyeOpen: 84,
-      browHeight: 40,
-      browTilt: 52,
+      jawLength: 84,
+      jawWidth: 68,
+      jawCorner: 76,
+      chinWidth: 54,
+      cheekSoft: 20,
+      eyeLevel: 34,
+      eyeSize: 42,
+      eyeGap: 56,
+      eyeTilt: 46,
+      eyeOpen: 40,
+      browHeight: 28,
+      browTilt: 38,
       noseLength: 50,
-      noseWidth: 34,
+      noseWidth: 54,
       mouthWidth: 50,
       mouthPos: 50,
-      smile: 64,
+      smile: 44,
     },
   },
 ];
@@ -174,7 +228,8 @@ const state = {
   compare: false,
   guides: true,
   overlay: true,
-  presetId: "teen",
+  presetId: "f-teen",
+  sex: "f",
   customs: [],
   base: null,
 };
@@ -329,12 +384,13 @@ function layout(face) {
   faceD += ` L ${fmt(leftC.x)} ${fmt(leftC.y)} Z`;
 
   const eyeY = cy + R * lerp(-0.22, 0.28, face.eyeLevel / 100);
-  const unit = (plane * 2) / 5;
-  const eyeW = unit * lerp(0.88, 1.22, face.eyeSize / 100);
+  const faceHalf = Math.sqrt(Math.max(R * R * 0.55, R * R - (eyeY - cy) ** 2)) * 0.94;
+  const unit = (faceHalf * 2) / 5;
+  const eyeW = unit * lerp(0.9, 1.18, face.eyeSize / 100);
   const eyeH = eyeW * lerp(0.48, 0.74, face.eyeOpen / 100);
-  const gap = unit * lerp(0.75, 1.3, face.eyeGap / 100);
+  const gap = unit * lerp(0.85, 1.25, face.eyeGap / 100);
   let eyeDx = gap / 2 + eyeW / 2;
-  if (eyeDx + eyeW / 2 > plane) eyeDx = plane - eyeW / 2;
+  if (eyeDx + eyeW / 2 > faceHalf) eyeDx = faceHalf - eyeW / 2;
   const innerGap = eyeDx * 2 - eyeW;
   const tiltPx = ((face.eyeTilt - 50) / 50) * eyeH * 0.28;
 
@@ -708,8 +764,27 @@ function drawFace(container, face, opts) {
         svgEl("line", { x1: bracketX, y1: geo.eyeY, x2: bracketX, y2: geo.chinY, stroke: "#2f7d52", "stroke-width": 1.2 }),
         svgEl("line", { x1: bracketX - 4, y1: geo.chinY, x2: bracketX + 4, y2: geo.chinY, stroke: "#2f7d52", "stroke-width": 1.2 })
       );
-      label("위", bracketX - 16, (topY + geo.eyeY) / 2 + 4, "#e23d5b");
-      label("아래", bracketX - 28, (geo.eyeY + geo.chinY) / 2 + 4, "#2f7d52");
+      const belowRatio = (geo.stats.below / geo.stats.above).toFixed(2);
+      const mark = (text, x, y, color, size) => {
+        const node = svgEl("text", {
+          x,
+          y,
+          fill: color,
+          "font-size": size,
+          "font-weight": 700,
+          "text-anchor": "end",
+          "font-family": "IBM Plex Sans KR, Malgun Gothic, sans-serif",
+        });
+        node.textContent = text;
+        svg.append(node);
+      };
+      const upperMid = (topY + geo.eyeY) / 2;
+      const lowerMid = (geo.eyeY + geo.chinY) / 2;
+      mark("위", bracketX - 10, upperMid - 8, "#e23d5b", 12);
+      mark("1", bracketX - 10, upperMid + 14, "#e23d5b", 20);
+      mark("아래", bracketX - 10, lowerMid - 8, "#2f7d52", 12);
+      mark(belowRatio, bracketX - 10, lowerMid + 14, "#2f7d52", 20);
+      mark(`눈 ${geo.stats.eyeGapRatio.toFixed(1)}`, bracketX - 10, geo.eyeY + 4, "#241e18", 12);
     }
   }
 
@@ -914,7 +989,7 @@ function renderStrip() {
     host.append(
       miniButton(faceFromPreset(preset), {
         uid: `mini-${preset.id}`,
-        name: preset.name,
+        name: `${preset.sex === "m" ? "남" : "여"} · ${preset.name}`,
         presetId: preset.id,
         pin: preset.id,
         deletable: preset.id.startsWith("mine-"),
@@ -1001,17 +1076,23 @@ function syncControls() {
   }
 }
 
-function renderControls() {
+function renderPresetRow() {
   const presets = document.getElementById("preset-row");
   presets.replaceChildren();
-  for (const preset of PRESETS) {
+  for (const preset of PRESETS.filter((item) => item.sex === state.sex)) {
     const button = document.createElement("button");
     button.type = "button";
     button.dataset.preset = preset.id;
     button.textContent = preset.name;
+    button.classList.toggle("is-active", preset.id === state.presetId);
     presets.append(button);
   }
+  for (const button of document.querySelectorAll("#sex-row button")) {
+    button.setAttribute("aria-pressed", String(button.dataset.sex === state.sex));
+  }
+}
 
+function renderControls() {
   const sliders = document.getElementById("sliders");
   sliders.replaceChildren();
   for (const group of GROUPS) {
@@ -1091,6 +1172,7 @@ function render({ save = true } = {}) {
   state.presetId = matchPreset(state.current);
   renderFaces();
   renderStrip();
+  renderPresetRow();
   renderCustoms();
   renderChrome();
   syncControls();
@@ -1128,7 +1210,7 @@ function saveCustom(name) {
 function deleteCustom(id) {
   state.customs = state.customs.filter((item) => item.id !== id);
   if (state.base?.id === id) {
-    rememberBase(PRESETS.find((preset) => preset.id === "teen") || PRESETS[0]);
+    rememberBase(PRESETS.find((preset) => preset.id === "f-teen") || PRESETS[0]);
   }
   render();
 }
@@ -1147,13 +1229,14 @@ function persist() {
     guides: state.guides,
     overlay: state.overlay,
     customs: state.customs,
-    baseId: state.base?.id || "teen",
+    baseId: state.base?.id || "f-teen",
+    sex: state.sex,
   };
   localStorage.setItem(STORE_KEY, JSON.stringify(data));
 }
 
 function loadState() {
-  const teen = PRESETS.find((preset) => preset.id === "teen") || PRESETS[0];
+  const teen = PRESETS.find((preset) => preset.id === "f-teen") || PRESETS[0];
   state.current = faceFromPreset(teen);
   state.customs = [];
   rememberBase(teen);
@@ -1174,6 +1257,7 @@ function loadState() {
     state.compare = Boolean(raw.compare && state.reference);
     state.guides = raw.guides !== false;
     state.overlay = raw.overlay !== false;
+    state.sex = raw.sex === "m" ? "m" : "f";
     const basePreset = presetById(raw.baseId);
     rememberBase(basePreset || teen);
   } catch {
@@ -1198,6 +1282,16 @@ function bind() {
     paintRange(event.target);
     event.target.closest(".slider").querySelector("output").textContent = event.target.value;
     render();
+  });
+
+  document.getElementById("sex-row").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-sex]");
+    if (!button || button.dataset.sex === state.sex) return;
+    const age = (state.base?.id || state.presetId || "f-teen").split("-")[1] || "teen";
+    state.sex = button.dataset.sex;
+    const next = PRESETS.find((preset) => preset.sex === state.sex && preset.id.endsWith(`-${age}`));
+    if (next) applyPreset(next.id);
+    else render();
   });
 
   document.getElementById("preset-row").addEventListener("click", (event) => {
@@ -1276,7 +1370,7 @@ function bind() {
   });
 
   document.getElementById("reset").addEventListener("click", () => {
-    if (!state.base) rememberBase(PRESETS.find((preset) => preset.id === "teen") || PRESETS[0]);
+    if (!state.base) rememberBase(PRESETS.find((preset) => preset.id === "f-teen") || PRESETS[0]);
     state.current = cloneFace(state.base.face);
     document.getElementById("copy-note").textContent = `「${state.base.name}」${objectParticle(state.base.name)} 비율로 되돌렸습니다.`;
     render();
