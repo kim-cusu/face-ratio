@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>얼굴 비율 스튜디오</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <div class="intro">
+        <p class="eyebrow">같은 원, 다른 얼굴</p>
+        <h1>얼굴 비율 스튜디오</h1>
+        <p class="lede">두개골 원은 그대로 둡니다. 유아는 눈이 크고 턱이 짧고, 성인은 눈이 위로 올라가고 턱이 길어집니다. 눈 사이는 눈 하나 너비가 기준입니다.</p>
+      </div>
+      <div class="top-actions">
+        <button type="button" class="chip" id="toggle-guides" aria-pressed="true">가이드 선</button>
+        <button type="button" class="chip" id="toggle-compare" aria-pressed="false">나란히 비교</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="stage" aria-label="얼굴 미리보기">
+        <div id="diff" class="diff" hidden></div>
+        <div id="faces"></div>
+        <div class="stage-actions" id="stage-actions" hidden>
+          <button type="button" id="pin-current">이 얼굴을 기준으로 고정</button>
+          <button type="button" id="load-ref">기준 불러오기</button>
+          <button type="button" id="swap">서로 바꾸기</button>
+          <button type="button" class="chip" id="toggle-overlay" aria-pressed="true">기준 겹치기</button>
+        </div>
+        <p class="hint" id="hint"></p>
+        <p class="legend" id="legend">
+          <span><i class="swatch green"></i>두개골 원, 고정</span>
+          <span><i class="swatch rose"></i>턱선</span>
+          <span><i class="swatch red"></i>눈선 · 중심</span>
+          <span><i class="swatch blue"></i>겹친 기준</span>
+        </p>
+      </section>
+
+      <aside class="panel" aria-label="비율 조절">
+        <div class="panel-head">
+          <h2>조절</h2>
+          <button type="button" class="text-btn" id="copy-values">값 복사</button>
+        </div>
+        <div class="preset-row" id="preset-row"></div>
+        <section class="custom-box">
+          <h3>나만의 비율</h3>
+          <p class="group-hint">지금 슬라이더 값을 이름으로 저장해 두고, 템플릿처럼 다시 불러옵니다.</p>
+          <form class="custom-save" id="custom-form">
+            <input id="custom-name" type="text" maxlength="16" placeholder="이름" autocomplete="off" />
+            <button type="submit">저장</button>
+          </form>
+          <div class="preset-row" id="custom-row"></div>
+        </section>
+        <div id="sliders"></div>
+        <div class="panel-foot">
+          <button type="button" class="text-btn" id="reset">초기화</button>
+          <p class="copy-note" id="copy-note" aria-live="polite"></p>
+        </div>
+      </aside>
+    </main>
+
+    <section class="strip-wrap" aria-label="한눈에 비교">
+      <div class="strip-head">
+        <h2>한눈에 비교</h2>
+        <p>카드를 누르면 그 비율을 불러옵니다. 「기준」은 왼쪽 비교 자리에 고정합니다.</p>
+      </div>
+      <div class="strip" id="strip"></div>
+    </section>
+  </div>
+  <script src="app.js?v=9"></script>
+</body>
+</html>
