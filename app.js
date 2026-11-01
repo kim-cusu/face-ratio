@@ -742,17 +742,17 @@ function drawFace(container, face, opts) {
       label("눈선", geo.cx + geo.R + 28, geo.eyeY + 4, "#e23d5b");
       svg.append(
         svgEl("line", {
-          x1: geo.cx - geo.R * 0.55,
+          x1: geo.cx - geo.noseW - 8,
           y1: geo.noseY,
-          x2: geo.cx + geo.R * 0.55,
+          x2: geo.cx + geo.noseW + 8,
           y2: geo.noseY,
           stroke: "#315fbf",
           "stroke-width": 1.2,
         }),
         svgEl("line", {
-          x1: geo.cx - geo.R * 0.4,
+          x1: geo.cx - geo.mouthW - 8,
           y1: geo.mouthY,
-          x2: geo.cx + geo.R * 0.4,
+          x2: geo.cx + geo.mouthW + 8,
           y2: geo.mouthY,
           stroke: "#315fbf",
           "stroke-width": 1.2,
